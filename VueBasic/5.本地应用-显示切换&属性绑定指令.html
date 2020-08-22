@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>5.本地应用-显示切换&属性绑定指令</title>
+    <style>
+      .active {
+        border: 3px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- v-show：根据表达式真假切换元素的显示状态，通过修改元素的dispaly实现掩藏显示 -->
+      <h2>v-show：根据表达式真假切换元素的显示状态</h2>
+      <input type="button" value="切换显示状态" @click="changeStatus" />
+      <img v-show="isShow" src="img/cat.jpg" alt="" />
+      <p></p>
+      <p>现在的年龄：{{age}}，当年龄大于18时，显示图片</p>
+      <input type="button" value="添加年龄" @click="addAge" />
+      <img v-show="age>18" src="img/cat.jpg" alt="" />
+
+      <!-- v-if：根据表达式真假切换元素的显示 -->
+      <h2>v-if：根据表达式真假切换元素的显示</h2>
+      <input type="button" value="切换标签状态" @click="changeTagStatus" />
+      <p v-if="isTagShow">我是一个标签</p>
+      <p v-if="temperature>35">温度过高</p>
+      <p>v-if是对标签进行操作，false时标签在dom树消失</p>
+      <p>v-show标签仍然存在于dom树</p>
+
+      <!-- v-bind设置元素的属性 -->
+      <h2>v-bind设置元素的属性</h2>
+      <img v-bind:src="imgSrc" />
+      <br />
+      <!-- 两种不同的设置元素属性的方法 -->
+      <p>两种不同的设置元素属性的方法</p>
+      <img
+        :src="imgSrc"
+        alt=""
+        :title="imgTitle + '!!!!'"
+        :class="isActive?'active':''"
+        @click="toggleActive"
+      />
+      <img
+        :src="imgSrc"
+        alt=""
+        :title="imgTitle + '!!!!'"
+        :class="{active:isActive}"
+        @click="toggleActive"
+      />
+
+      <!-- 图片切换实例 -->
+      <h2>图片切换实例</h2>
+      <img :src="imgArray[index]" />
+      <a v-show="index!=0" href="javascript:void(0)" @click="prev">上一张</a>
+      <a v-show="index!=imgArray.length" href="javascript:void(0)" @click="next"
+        >下一张</a
+      >
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          isShow: false,
+          age: 17,
+          isTagShow: false,
+          temperature: 40,
+          imgSrc: "img/cat.jpg",
+          imgTitle: "小猫",
+          isActive: false,
+          imgArray: [
+            "img/cat.jpg",
+            "img/dog.jpg",
+            "img/pig.jpg",
+            "img/sheep.jpg",
+          ],
+          index: 0,
+        },
+        methods: {
+          changeStatus: function () {
+            this.isShow = !this.isShow;
+          },
+          addAge: function () {
+            this.age++;
+          },
+          changeTagStatus: function () {
+            this.isTagShow = !this.isTagShow;
+          },
+          toggleActive: function () {
+            this.isActive = !this.isActive;
+          },
+          prev: function () {
+            this.index--;
+          },
+          next: function () {
+            this.index++;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4.本地应用-内容绑定&事件绑定指令</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- v-text 输出数据 -->
+      <h2>v-text 输出数据</h2>
+      <p v-text="message">深圳</p>
+      <p v-text="info">深圳</p>
+      <p>{{message + "!"}}深圳</p>
+
+      <!-- v-html 保留html格式  -->
+      <h2>v-html 保留html格式</h2>
+      <p v-test="content"></p>
+      <p v-html="content"></p>
+
+      <!-- v-on 绑定事件 -->
+      <h2>v-on 绑定事件</h2>
+      <input type="button" value="事件绑定" v-on:click="doIt" />
+      <input type="button" value="v-on简写" @click="doIt" />
+      <input type="button" value="双击事件" @dblclick="doIt" />
+      <p @click="changeFood">{{food}}</p>
+
+      <!-- 计数器功能 -->
+      <h2>计数器功能</h2>
+      <button @click="minus">-</button>
+      <span>{{count}}</span>
+      <button @click="add">+</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          message: "shenpotato",
+          info: "student",
+          content: "<a href='http://www.baidu.com'>百度网址</a>",
+          food: "西兰花炒蛋",
+          count: 1,
+        },
+        methods: {
+          doIt: function () {
+            alert("做it");
+          },
+          changeFood: function () {
+            // console.log(this.food);
+            // vue中通过this获取data
+            this.food += " 好好吃 ";
+          },
+          add: function () {
+            if (this.count >= 10) {
+              alert("已达上限");
+            } else {
+              this.count += 1;
+            }
+          },
+          minus: function () {
+            console.log("minus");
+            if (this.count <= 0) {
+              alert("已达下限");
+            } else {
+              this.count -= 1;
+            }
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

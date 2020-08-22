@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>6.本地应用-列表循环&表单元素绑定</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- v-for：根据数据生成列表结构 -->
+      <h2>v-for：根据数据生成列表结构</h2>
+      <ul>
+        <li v-for="(item, index) in arr">
+          方位：{{item}} + {{index}}
+        </li>
+      </ul>
+
+      <b v-for="item in vegetables">
+        蔬菜名：{{item.name}} {{item.color}}
+        <br />
+      </b>
+      <button @click="add">添加蔬菜</button>
+      <button @click="remove">去除蔬菜</button>
+
+      <!-- v-on 补充，带参数 -->
+      <h2>v-on 补充，带参数</h2>
+      <input
+        type="button"
+        value="带参数的事件调用"
+        @click="doItWithPara(666,'老铁')"
+      />
+      <input type="text" @keyup.enter="sayHi" />
+
+      <!-- v-model 获取和设置表单元素的值，通过绑定data数据，双向绑定及时更新 -->
+      <h2>v-model 获取和设置表单元素的值</h2>
+      <input type="text" v-model="message" @keyup.enter="getMessage" />
+      <b v-text="message"></b>
+      <input type="button" @click="setMessage" value="改变message"></input>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          arr: ["中南", "东南", "西南"],
+          vegetables: [{ name: "西兰花", color: "绿色" }, { name: "白菜" }],
+          message: "内容",
+        },
+        methods: {
+          add: function () {
+            this.vegetables.push({ name: "韭菜" });
+          },
+          remove: function () {
+            this.vegetables.shift();
+          },
+          doItWithPara: function (param1, param2) {
+            alert(param1 + "!" + param2);
+          },
+          sayHi: function () {
+            alert("吃了没");
+          },
+          getMessage: function () {
+            alert(this.message);
+          },
+          setMessage: function () {
+            this.message = "nihao";
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

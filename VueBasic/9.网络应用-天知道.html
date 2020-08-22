@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>9.网络应用-天知道</title>
+  </head>
+  <body>
+    <div id="app">
+      <h2>天知道</h2>
+      <input type="text" v-model="city" @keyup.enter="searchWeather" />
+      <input type="button" value="搜索" @click="searchWeather" />
+      <br />
+      <a href="javascript:;" @click="changeCity('北京')">北京</a>
+      <a href="javascript:;" @click="changeCity('上海')">上海</a>
+      <a href="javascript:;" @click="changeCity('广州')">广州</a>
+      <a href="javascript:;" @click="changeCity('深圳')">深圳</a>
+      <ul>
+        <li v-for="item in weatherList">
+          <span>{{item.type}}</span>
+          <span>{{item.low}}~{{item.high}}</span>
+          <span>{{item.date}}</span>
+        </li>
+      </ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="9.main.js"></script>
+  </body>
+</html>
